@@ -45,3 +45,11 @@ reservation:
   expiration:
     scheduler-enabled: ${RESERVATION_EXPIRATION_SCHEDULER_ENABLED:true}
     fixed-delay: ${RESERVATION_EXPIRATION_FIXED_DELAY:30s}
+
+payment:
+  gateway:
+    provider: ${PAYMENT_GATEWAY_PROVIDER:fake}
+
+portone:
+  api-secret: ${PORTONE_API_SECRET:}
+  api-base-url: ${PORTONE_API_BASE_URL:https://api.portone.io}

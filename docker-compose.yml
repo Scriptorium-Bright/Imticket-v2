@@ -27,6 +27,9 @@ services:
       DB_POOL_MAX_SIZE: ${DB_POOL_MAX_SIZE:-30}
       JWT_SECRET: ${JWT_SECRET:-imticket-v2-docker-secret-key-change-before-production}
       RESERVATION_EXPIRATION_SCHEDULER_ENABLED: ${RESERVATION_EXPIRATION_SCHEDULER_ENABLED:-true}
+      PAYMENT_GATEWAY_PROVIDER: ${PAYMENT_GATEWAY_PROVIDER:-fake}
+      PORTONE_API_SECRET: ${PORTONE_API_SECRET:-}
+      PORTONE_API_BASE_URL: ${PORTONE_API_BASE_URL:-https://api.portone.io}
     ports:
       - "8080:8080"
     depends_on:
