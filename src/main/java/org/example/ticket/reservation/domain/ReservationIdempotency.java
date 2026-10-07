@@ -54,12 +54,12 @@ public class ReservationIdempotency {
     public void succeed(Reservation reservation) {
         status = IdempotencyStatus.SUCCEEDED;
         this.reservation = reservation;
-        leaseExpiresAt = LocalDateTime.MIN;
+        leaseExpiresAt = LocalDateTime.now();
     }
 
     public void fail(String errorCode) {
         status = IdempotencyStatus.FAILED;
         lastErrorCode = errorCode;
-        leaseExpiresAt = LocalDateTime.MIN;
+        leaseExpiresAt = LocalDateTime.now();
     }
 }

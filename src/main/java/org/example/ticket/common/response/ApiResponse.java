@@ -10,10 +10,6 @@ public record ApiResponse<T>(
         return new ApiResponse<>(true, data, null, null);
     }
 
-    public static ApiResponse<Void> success() {
-        return success(null);
-    }
-
     public static ApiResponse<Void> failure(String errorCode, String message) {
         return new ApiResponse<>(false, null, errorCode, message);
     }
