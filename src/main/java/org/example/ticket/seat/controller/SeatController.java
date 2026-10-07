@@ -1,0 +1,21 @@
+package org.example.ticket.seat.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.example.ticket.common.response.ApiResponse;
+import org.example.ticket.seat.dto.SeatResponse;
+import org.example.ticket.seat.repository.SeatRepository;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/seats")
+@RequiredArgsConstructor
+public class SeatController {
+    private final SeatRepository seatRepository;
+
+    @GetMapping("/{performanceTimeId}")
+    public ApiResponse<List<SeatResponse>> seatMap(@PathVariable Long performanceTimeId) {
+        return ApiResponse.success(seatRepository.findSeatMap(performanceTimeId));
+    }
+}
