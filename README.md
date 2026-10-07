@@ -1,1 +1,65 @@
 # Imticket-v2
+
+티켓 예매 흐름을 다시 검증하기 위한 Spring Boot 기반 프로젝트입니다.
+
+## 기술 스택
+
+- Java 21
+- Spring Boot 3.4.4
+- Spring Data JPA
+- Spring Security
+- MySQL 8.4
+- Micrometer / Prometheus endpoint
+- Docker / Docker Compose
+- GitHub Actions
+
+## 현재 구현 범위
+
+- 아이디/비밀번호 기반 최소 회원 인증과 JWT 발급
+- 공연장 좌석 템플릿, 공연, 회차, 좌석 생성
+- 회차별 좌석 현황 DB 조회
+- MySQL 비관적 잠금 기반 좌석 선점
+- 7분 결제 대기 예약과 만료 처리
+- 멱등 키 기반 예약 중복 요청 처리
+- 결제 주문 생성과 Fake/PortOne 결제 검증 adapter
+- 결제 완료와 예약 만료가 경합할 때 예약/좌석/결제 상태 반영
+- Actuator health/metrics/prometheus endpoint
+
+현재 단계에는 Waiting Room, Nginx 유입 제어, Seat Availability Cache를 포함하지 않습니다.
+
+## 실행
+
+```bash
+cp .env.example .env
+docker compose up --build
+```
+
+애플리케이션은 `http://localhost:8080`, MySQL은 `localhost:3306`에서 실행됩니다.
+
+로컬 Gradle 실행:
+
+```bash
+./gradlew test
+./gradlew bootRun
+```
+
+## 기본 API 흐름
+
+1. `POST /api/auth/register` 또는 `POST /api/auth/login`
+2. `POST /api/catalog/halls`
+3. `POST /api/catalog/performances`
+4. `POST /api/catalog/performances/{performanceId}/times`
+5. `GET /api/seats/{performanceTimeId}`
+6. `POST /api/reservations/pre-reserve`
+7. `POST /api/payments/prepare`
+8. `POST /api/payments/{paymentOrderId}/verify`
+
+예약과 결제 요청은 `Idempotency-Key` 헤더를 사용합니다.
+
+## CI
+
+`develop`, `main` push 및 Pull Request에서 다음을 검증합니다.
+
+- 테스트
+- Spring Boot 실행 JAR 빌드
+- Docker 이미지 빌드
