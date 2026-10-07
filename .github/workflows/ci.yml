@@ -25,14 +25,12 @@ jobs:
 
       - name: Gradle 설정
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '8.10.2'
 
       - name: 테스트 실행
-        run: gradle clean test --no-daemon
+        run: ./gradlew clean test --no-daemon
 
       - name: 애플리케이션 빌드
-        run: gradle bootJar --no-daemon
+        run: ./gradlew bootJar --no-daemon
 
       - name: 도커 이미지 빌드 확인
         run: docker build -t imticket-v2:ci .
