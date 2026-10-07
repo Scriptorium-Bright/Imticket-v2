@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: imticket-v2
+  datasource:
+    url: ${DB_URL:jdbc:mysql://localhost:3306/imticket?serverTimezone=UTC&characterEncoding=UTF-8}
+    username: ${DB_USERNAME:imticket}
+    password: ${DB_PASSWORD:imticket}
+    hikari:
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:30}
+      minimum-idle: ${DB_POOL_MIN_IDLE:5}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT_MS:3000}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+
+server:
+  port: ${SERVER_PORT:8080}
+  tomcat:
+    threads:
+      max: ${TOMCAT_MAX_THREADS:200}
+      min-spare: ${TOMCAT_MIN_SPARE_THREADS:10}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:imticket-v2-local-secret-key-change-me-2026}
+    access-token-ttl: ${JWT_ACCESS_TOKEN_TTL:2h}
+
+reservation:
+  hold-duration: ${RESERVATION_HOLD_DURATION:7m}
+  expiration:
+    scheduler-enabled: ${RESERVATION_EXPIRATION_SCHEDULER_ENABLED:true}
+    fixed-delay: ${RESERVATION_EXPIRATION_FIXED_DELAY:30s}

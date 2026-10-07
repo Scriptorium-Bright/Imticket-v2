@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:imticket;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    open-in-view: false
+
+security:
+  jwt:
+    secret: imticket-v2-test-secret-key-at-least-thirty-two-bytes
+    access-token-ttl: 30m
+
+reservation:
+  expiration:
+    scheduler-enabled: false
