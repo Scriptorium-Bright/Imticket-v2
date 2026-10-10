@@ -9,7 +9,8 @@
 - Spring Data JPA
 - Spring Security
 - MySQL 8.4
-- Micrometer / Prometheus endpoint
+- Spring Boot Actuator / Micrometer
+- Prometheus / Grafana
 - Docker / Docker Compose
 - GitHub Actions
 
@@ -23,7 +24,8 @@
 - 멱등 키 기반 예약 중복 요청 처리
 - 결제 주문 생성과 Fake/PortOne 결제 검증 adapter
 - 결제 완료와 예약 만료가 경합할 때 예약/좌석/결제 상태 반영
-- Actuator health/metrics/prometheus endpoint
+- Actuator 기반 애플리케이션 메트릭 수집
+- Prometheus 수집과 Grafana baseline 대시보드
 
 현재 단계에는 Waiting Room, Nginx 유입 제어, Seat Availability Cache를 포함하지 않습니다.
 
@@ -34,7 +36,16 @@ cp .env.example .env
 docker compose up --build
 ```
 
-애플리케이션은 `http://localhost:8080`, MySQL은 `localhost:3306`에서 실행됩니다.
+실행 후 접근 주소:
+
+- 애플리케이션: `http://localhost:8080`
+- Actuator health: `http://localhost:8080/actuator/health`
+- Prometheus metrics: `http://localhost:8080/actuator/prometheus`
+- Prometheus: `http://localhost:9090`
+- Grafana: `http://localhost:3000` (기본 계정 `admin/admin`)
+- MySQL: `localhost:3306`
+
+Grafana에는 `Imticket-v2 Baseline` 대시보드가 자동 등록됩니다. HTTP 처리량과 p50/p95/p99, 5xx, Hikari connection, Tomcat thread, JVM heap을 확인할 수 있습니다.
 
 로컬 Gradle 실행:
 
@@ -63,3 +74,4 @@ docker compose up --build
 - 테스트
 - Spring Boot 실행 JAR 빌드
 - Docker 이미지 빌드
+

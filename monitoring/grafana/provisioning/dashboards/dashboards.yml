@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: Imticket-v2
+    orgId: 1
+    folder: Imticket-v2
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards
