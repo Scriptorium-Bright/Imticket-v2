@@ -20,11 +20,13 @@
 - 아이디/비밀번호 기반 최소 회원 인증과 JWT 발급
 - 공연장 좌석 템플릿, 공연, 회차, 좌석 생성
 - 회차별 좌석 현황 DB 조회
+- 선택 좌석 정보와 총액 확인
 - MySQL 비관적 잠금 기반 좌석 선점
 - 7분 결제 대기 예약과 만료 처리
 - 멱등 키 기반 예약 중복 요청 처리
 - 결제 주문 생성과 Fake/PortOne 결제 검증 adapter
 - 결제 완료와 예약 만료가 경합할 때 예약/좌석/결제 상태 반영
+- 본인 예약 상세 정보 조회
 - Actuator 기반 애플리케이션 및 JVM 메트릭 수집
 - Prometheus 수집과 Grafana baseline 대시보드
 - 필요 시 JFR과 async-profiler로 CPU, allocation, lock 분석
@@ -84,9 +86,14 @@ async-profiler:
 3. `POST /api/catalog/performances`
 4. `POST /api/catalog/performances/{performanceId}/times`
 5. `GET /api/seats/{performanceTimeId}`
-6. `POST /api/reservations/pre-reserve`
-7. `POST /api/payments/prepare`
-8. `POST /api/payments/{paymentOrderId}/verify`
+6. `POST /api/seats/selection-summary`
+7. `POST /api/reservations/pre-reserve`
+8. `POST /api/payments/prepare`
+9. 외부 결제
+10. `POST /api/payments/{paymentOrderId}/verify`
+11. `GET /api/reservations/{reservationId}`
+
+선택 좌석 정보 확인은 조회 시점의 상태를 보여주며 좌석을 선점하지 않습니다. 실제 좌석 상태 검증과 잠금은 `/api/reservations/pre-reserve`에서 다시 수행합니다.
 
 예약과 결제 요청은 `Idempotency-Key` 헤더를 사용합니다.
 

@@ -24,4 +24,9 @@ public interface SeatRepository extends JpaRepository<Seat, Long> {
     @Query("select new org.example.ticket.seat.dto.SeatResponse(s.id, s.section, s.rowNumber, s.seatNumber, s.grade, s.price, s.status) " +
             "from Seat s where s.performanceTime.id = :performanceTimeId order by s.id")
     List<SeatResponse> findSeatMap(@Param("performanceTimeId") Long performanceTimeId);
+
+    @Query("select new org.example.ticket.seat.dto.SeatResponse(s.id, s.section, s.rowNumber, s.seatNumber, s.grade, s.price, s.status) " +
+            "from Seat s where s.performanceTime.id = :performanceTimeId and s.id in :seatIds order by s.id")
+    List<SeatResponse> findSeatSelection(@Param("performanceTimeId") Long performanceTimeId,
+                                         @Param("seatIds") List<Long> seatIds);
 }

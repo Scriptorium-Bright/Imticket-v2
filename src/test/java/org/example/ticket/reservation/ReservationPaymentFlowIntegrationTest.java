@@ -13,12 +13,17 @@ import org.example.ticket.performance.domain.PerformanceTime;
 import org.example.ticket.performance.repository.PerformanceRepository;
 import org.example.ticket.performance.repository.PerformanceTimeRepository;
 import org.example.ticket.reservation.domain.ReservationStatus;
+import org.example.ticket.reservation.dto.ReservationDetailResponse;
 import org.example.ticket.reservation.dto.ReservationRequest;
 import org.example.ticket.reservation.dto.ReservationResponse;
 import org.example.ticket.reservation.service.ReservationBookingService;
+import org.example.ticket.reservation.service.ReservationQueryService;
 import org.example.ticket.seat.domain.Seat;
 import org.example.ticket.seat.domain.SeatStatus;
+import org.example.ticket.seat.dto.SeatSelectionRequest;
+import org.example.ticket.seat.dto.SeatSelectionSummaryResponse;
 import org.example.ticket.seat.repository.SeatRepository;
+import org.example.ticket.seat.service.SeatSelectionService;
 import org.example.ticket.venue.domain.SeatGrade;
 import org.example.ticket.venue.domain.VenueHall;
 import org.example.ticket.venue.repository.VenueHallRepository;
@@ -43,9 +48,31 @@ class ReservationPaymentFlowIntegrationTest {
     @Autowired private PerformanceRepository performanceRepository;
     @Autowired private PerformanceTimeRepository performanceTimeRepository;
     @Autowired private SeatRepository seatRepository;
+    @Autowired private SeatSelectionService seatSelectionService;
     @Autowired private ReservationBookingService bookingService;
+    @Autowired private ReservationQueryService reservationQueryService;
     @Autowired private PaymentPreparationService paymentPreparationService;
     @Autowired private PaymentVerificationService paymentVerificationService;
+
+    @Test
+    void 선택한_좌석의_정보와_총액을_확인할_수_있다() {
+        Fixture fixture = createFixture();
+        Seat secondSeat = createSecondSeat(fixture);
+
+        SeatSelectionSummaryResponse summary = seatSelectionService.summarize(
+                new SeatSelectionRequest(
+                        fixture.performanceTime().getId(),
+                        List.of(secondSeat.getId(), fixture.seat().getId())
+                )
+        );
+
+        assertThat(summary.performanceTimeId()).isEqualTo(fixture.performanceTime().getId());
+        assertThat(summary.seats()).hasSize(2);
+        assertThat(summary.seats().get(0).id()).isEqualTo(fixture.seat().getId());
+        assertThat(summary.seats().get(1).id()).isEqualTo(secondSeat.getId());
+        assertThat(summary.totalPrice()).isEqualTo(20000);
+        assertThat(summary.seats()).allMatch(seat -> seat.status() == SeatStatus.AVAILABLE);
+    }
 
     @Test
     void 동일_멱등키는_같은_예약을_반환하고_다른_사용자는_선점된_좌석을_예약할_수_없다() {
@@ -93,7 +120,7 @@ class ReservationPaymentFlowIntegrationTest {
     }
 
     @Test
-    void 결제_승인_검증이_완료되면_예약과_좌석이_확정된다() {
+    void 결제_승인_검증이_완료되면_예약과_좌석이_확정되고_예약_정보를_조회할_수_있다() {
         Fixture fixture = createFixture();
         ReservationResponse reservation = bookingService.preReserve(
                 fixture.member().getId(),
@@ -111,9 +138,17 @@ class ReservationPaymentFlowIntegrationTest {
                 prepared.paymentOrderId(),
                 new PaymentVerifyRequest(prepared.providerPaymentId())
         );
+        ReservationDetailResponse detail = reservationQueryService.find(
+                fixture.member().getId(),
+                reservation.id()
+        );
 
         assertThat(verified.paymentStatus()).isEqualTo(PaymentOrderStatus.APPLIED);
         assertThat(verified.reservationStatus()).isEqualTo(ReservationStatus.CONFIRMED);
+        assertThat(detail.status()).isEqualTo(ReservationStatus.CONFIRMED);
+        assertThat(detail.reservationCode()).isEqualTo(reservation.reservationCode());
+        assertThat(detail.seats()).hasSize(1);
+        assertThat(detail.seats().getFirst().id()).isEqualTo(fixture.seat().getId());
         assertThat(seatRepository.findById(fixture.seat().getId()).orElseThrow().getStatus())
                 .isEqualTo(SeatStatus.RESERVED);
     }
