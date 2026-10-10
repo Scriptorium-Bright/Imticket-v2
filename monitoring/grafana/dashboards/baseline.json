@@ -129,31 +129,141 @@
     },
     {
       "type": "timeseries",
-      "title": "JVM heap used",
+      "title": "JVM process CPU",
       "id": 6,
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 8,
         "x": 0,
         "y": 16
       },
       "targets": [
         {
           "refId": "A",
+          "expr": "process_cpu_usage{application=\"imticket-v2\"}",
+          "legendFormat": "process"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "JVM heap used / max",
+      "id": 7,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 16
+      },
+      "targets": [
+        {
+          "refId": "A",
           "expr": "sum(jvm_memory_used_bytes{application=\"imticket-v2\",area=\"heap\"})",
-          "legendFormat": "heap used"
+          "legendFormat": "used"
+        },
+        {
+          "refId": "B",
+          "expr": "sum(jvm_memory_max_bytes{application=\"imticket-v2\",area=\"heap\"} > 0)",
+          "legendFormat": "max"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "JVM allocation rate",
+      "id": 8,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 16
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(jvm_gc_memory_allocated_bytes_total{application=\"imticket-v2\"}[1m]))",
+          "legendFormat": "bytes/s"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "GC pause p95",
+      "id": 9,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 24
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(jvm_gc_pause_seconds_bucket{application=\"imticket-v2\"}[1m])))",
+          "legendFormat": "p95"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "JVM threads",
+      "id": 10,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 24
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "jvm_threads_live_threads{application=\"imticket-v2\"}",
+          "legendFormat": "live"
+        },
+        {
+          "refId": "B",
+          "expr": "jvm_threads_peak_threads{application=\"imticket-v2\"}",
+          "legendFormat": "peak"
+        },
+        {
+          "refId": "C",
+          "expr": "jvm_threads_daemon_threads{application=\"imticket-v2\"}",
+          "legendFormat": "daemon"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "JVM live data / deadlocked threads",
+      "id": 11,
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 24
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "jvm_gc_live_data_size_bytes{application=\"imticket-v2\"}",
+          "legendFormat": "live data bytes"
+        },
+        {
+          "refId": "B",
+          "expr": "jvm_threads_deadlocked_threads{application=\"imticket-v2\"}",
+          "legendFormat": "deadlocked"
         }
       ]
     },
     {
       "type": "timeseries",
       "title": "Hikari acquisition max",
-      "id": 7,
+      "id": 12,
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 12,
-        "y": 16
+        "x": 0,
+        "y": 32
       },
       "targets": [
         {
@@ -162,13 +272,32 @@
           "legendFormat": "acquire max"
         }
       ]
+    },
+    {
+      "type": "timeseries",
+      "title": "JVM thread states",
+      "id": 13,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 32
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "jvm_threads_states_threads{application=\"imticket-v2\"}",
+          "legendFormat": "{{state}}"
+        }
+      ]
     }
   ],
   "refresh": "5s",
   "schemaVersion": 41,
   "tags": [
     "imticket-v2",
-    "baseline"
+    "baseline",
+    "jvm"
   ],
   "templating": {
     "list": []
@@ -181,5 +310,5 @@
   "timezone": "browser",
   "title": "Imticket-v2 Baseline",
   "uid": "imticket-v2-baseline",
-  "version": 1
+  "version": 2
 }

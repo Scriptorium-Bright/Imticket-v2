@@ -32,6 +32,8 @@ services:
       PORTONE_API_BASE_URL: ${PORTONE_API_BASE_URL:-https://api.portone.io}
     ports:
       - "8080:8080"
+    volumes:
+      - ./profiles:/profiles
     depends_on:
       mysql:
         condition: service_healthy
