@@ -1,0 +1,48 @@
+{
+  "captured_at": "2026-10-11T14:48:42.200241+09:00",
+  "containers": {
+    "imticket-v2-app": {
+      "container_id": "73f4f0c3811d165ce7a80274c7500b9a09f5f23b38902ed3f3e20c3c73f97ebf",
+      "image_id": "sha256:4847d09556597653ff855c3d17329b2ea8990e70a9829fcce970b836302d9a57",
+      "started_at": "2026-10-10T18:16:00.283692444Z",
+      "running": true,
+      "restart_count": 0,
+      "config_sha256": "b9c661ae88fd1257949af40079d64a47175202779a7163202a63464fb0c01d0d",
+      "host_config_sha256": "76ec5a4a87129271e08034f755b7ccef95635e31c7e01a053207d9c2aeb6535e",
+      "mounts_sha256": "32fc31ff75d38e47e273c6e3ecdd15048dd6eed13cd02412f18d6c4a520b0ab0"
+    },
+    "imticket-v2-mysql": {
+      "container_id": "1a486ac5213020be03f0e0bc5e17474e380b9232db210c54932cd1e8cac14afc",
+      "image_id": "sha256:6ea90827b1100f8f2ae306a539f86d2c264a26ed435a2a9f75551dd5c3aeb242",
+      "started_at": "2026-10-10T09:16:47.039650913Z",
+      "running": true,
+      "restart_count": 0,
+      "config_sha256": "05a02c68416f67e7a585320d3557516ae9cc91e5e581bf89f235530b6f46e513",
+      "host_config_sha256": "6effb1994aea28d7d60cdd363b5bb526b983b8e9866b881666fe47bb93786b56",
+      "mounts_sha256": "f179727a448adccf5592d1420d2e3d80eef2eeb5a8fa3ce255d618ffd2bb1062"
+    },
+    "imticket-v2-prometheus": {
+      "container_id": "07a4cc8140610dffec5b76909ff18359536b08024975e328274245825f3420a0",
+      "image_id": "sha256:c6b27ea434f8389bfe233fbc7be381cf50587c286e871bc842008f5a1b1908a7",
+      "started_at": "2026-10-10T16:58:09.037527802Z",
+      "running": true,
+      "restart_count": 0,
+      "config_sha256": "99a4664c5a261ec990832ded9f22ee59f3fa1c4622394064ad243a760d076a53",
+      "host_config_sha256": "3a7ac5c31c786a34c04a8ce87a52a84ba0cdb906597bef6bc895fb2566a228c1",
+      "mounts_sha256": "d0179d149ffd9de5f3c59403355fbf55c7e7b4d7d23b3aa94952c4348c936258"
+    }
+  },
+  "server_checkout_commit": "d9777b0ae9b46a9af9f7e7cff8105b4a3b1bbf7e",
+  "db_settings": {
+    "innodb_buffer_pool_size": "134217728",
+    "innodb_flush_log_at_trx_commit": "1",
+    "innodb_lock_wait_timeout": "50",
+    "max_connections": "151",
+    "sync_binlog": "1",
+    "transaction_isolation": "REPEATABLE-READ",
+    "version": "8.4.11"
+  },
+  "comparison_sha256": "9fd5ffdb61c89e952a33e4412de520a08be836b3e1c795a7dafd3b272a30da92",
+  "runtime_source_note": "Checkout HEAD and running image ID are separate evidence; HEAD alone does not prove image contents.",
+  "scope": "Existing server identity/configuration, outside load. No host/DB-lock exporter or new time-series collector."
+}

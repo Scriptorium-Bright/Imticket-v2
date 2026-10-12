@@ -1,0 +1,528 @@
+{
+  "created_at": "2026-10-11T14:48:38.599104+09:00",
+  "kind": "baseline-first-batch",
+  "runs": [
+    {
+      "profile": "musical-low",
+      "workloadModel": "single-attempt",
+      "runNumber": 1,
+      "config": "config/baseline/musical-low.single-attempt.json",
+      "config_source": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline/musical-low.single-attempt.json",
+      "config_sha256": "a2a45985cd9f761264bf5d304026730a5a0c49accf1f303760d5abe620019278",
+      "effective_config": {
+        "schemaVersion": 1,
+        "fixtureTemplate": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/fixture-template.json",
+        "randomSeed": 20261011,
+        "requestTimeout": "10s",
+        "auth": {
+          "mode": "automatic",
+          "tokenPoolSize": 10,
+          "accountWorkers": 4,
+          "tokenValidityMarginSeconds": 60
+        },
+        "measurement": {
+          "executor": "ramping-arrival-rate",
+          "timeUnit": "1s",
+          "startRate": 0,
+          "gracefulStop": "90s",
+          "stages": [
+            {
+              "duration": "60s",
+              "target": 20
+            },
+            {
+              "duration": "60s",
+              "target": 20
+            },
+            {
+              "duration": "60s",
+              "target": 0
+            }
+          ],
+          "preAllocatedVUs": 64,
+          "maxVUs": 64
+        },
+        "warmup": {
+          "enabled": true,
+          "execution": {
+            "executor": "ramping-arrival-rate",
+            "timeUnit": "1s",
+            "startRate": 1,
+            "stages": [
+              {
+                "duration": "60s",
+                "target": 1
+              }
+            ],
+            "preAllocatedVUs": 80,
+            "maxVUs": 80,
+            "gracefulStop": "90s"
+          }
+        },
+        "prometheus": {
+          "job": "imticket-v2",
+          "application": "imticket-v2",
+          "scrapeIntervalSeconds": 5,
+          "stepSeconds": 5,
+          "rateWindow": "30s",
+          "contextBeforeSeconds": 30,
+          "contextAfterSeconds": 5,
+          "settleTimeoutSeconds": 15,
+          "queryTimeoutSeconds": 10
+        },
+        "validation": {
+          "arrivalCountTolerance": {
+            "absoluteIterations": 2,
+            "relative": 0.05
+          },
+          "minimumApiSamples": 100
+        },
+        "inventory": {
+          "mode": "db"
+        },
+        "profile": "musical-low",
+        "workloadModel": "single-attempt"
+      },
+      "seat_count": 1000,
+      "stage_schedule": [
+        {
+          "stage": 1,
+          "start_offset_seconds": 0.0,
+          "end_offset_seconds": 60.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 0.0,
+          "configured_end_rate_per_second": 20.0,
+          "configured_expected_starts": 600.0
+        },
+        {
+          "stage": 2,
+          "start_offset_seconds": 60.0,
+          "end_offset_seconds": 120.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 20.0,
+          "configured_end_rate_per_second": 20.0,
+          "configured_expected_starts": 1200.0
+        },
+        {
+          "stage": 3,
+          "start_offset_seconds": 120.0,
+          "end_offset_seconds": 180.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 20.0,
+          "configured_end_rate_per_second": 0.0,
+          "configured_expected_starts": 600.0
+        }
+      ],
+      "configured_expected_starts": 2400.0,
+      "scrape_opportunities_per_stage": [
+        12.0,
+        12.0,
+        12.0
+      ]
+    },
+    {
+      "profile": "musical-low",
+      "workloadModel": "reselection",
+      "runNumber": 1,
+      "config": "config/baseline/musical-low.reselection.json",
+      "config_source": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline/musical-low.reselection.json",
+      "config_sha256": "6cd9ff54c38bc493ab63bc07b6787ab9a7ccee59074dbf1d9d16e7f310dd22ec",
+      "effective_config": {
+        "schemaVersion": 1,
+        "fixtureTemplate": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/fixture-template.json",
+        "randomSeed": 20261011,
+        "requestTimeout": "10s",
+        "auth": {
+          "mode": "automatic",
+          "tokenPoolSize": 10,
+          "accountWorkers": 4,
+          "tokenValidityMarginSeconds": 60
+        },
+        "measurement": {
+          "executor": "ramping-arrival-rate",
+          "timeUnit": "1s",
+          "startRate": 0,
+          "gracefulStop": "90s",
+          "stages": [
+            {
+              "duration": "60s",
+              "target": 20
+            },
+            {
+              "duration": "60s",
+              "target": 20
+            },
+            {
+              "duration": "60s",
+              "target": 0
+            }
+          ],
+          "preAllocatedVUs": 160,
+          "maxVUs": 160
+        },
+        "warmup": {
+          "enabled": true,
+          "execution": {
+            "executor": "ramping-arrival-rate",
+            "timeUnit": "1s",
+            "startRate": 1,
+            "stages": [
+              {
+                "duration": "60s",
+                "target": 1
+              }
+            ],
+            "preAllocatedVUs": 80,
+            "maxVUs": 80,
+            "gracefulStop": "90s"
+          }
+        },
+        "prometheus": {
+          "job": "imticket-v2",
+          "application": "imticket-v2",
+          "scrapeIntervalSeconds": 5,
+          "stepSeconds": 5,
+          "rateWindow": "30s",
+          "contextBeforeSeconds": 30,
+          "contextAfterSeconds": 5,
+          "settleTimeoutSeconds": 15,
+          "queryTimeoutSeconds": 10
+        },
+        "validation": {
+          "arrivalCountTolerance": {
+            "absoluteIterations": 2,
+            "relative": 0.05
+          },
+          "minimumApiSamples": 100
+        },
+        "inventory": {
+          "mode": "db"
+        },
+        "profile": "musical-low",
+        "workloadModel": "reselection",
+        "reselection": {
+          "selectionPolicy": "preferred-region-then-other-then-all",
+          "thinkTime": {
+            "enabled": false,
+            "distribution": null,
+            "duration": null,
+            "min": null,
+            "max": null
+          },
+          "abandonment": {
+            "enabled": false,
+            "maxReselections": null,
+            "maxDuration": null
+          },
+          "safetyGuard": {
+            "maxJourneyDuration": "60s"
+          }
+        }
+      },
+      "seat_count": 1000,
+      "stage_schedule": [
+        {
+          "stage": 1,
+          "start_offset_seconds": 0.0,
+          "end_offset_seconds": 60.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 0.0,
+          "configured_end_rate_per_second": 20.0,
+          "configured_expected_starts": 600.0
+        },
+        {
+          "stage": 2,
+          "start_offset_seconds": 60.0,
+          "end_offset_seconds": 120.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 20.0,
+          "configured_end_rate_per_second": 20.0,
+          "configured_expected_starts": 1200.0
+        },
+        {
+          "stage": 3,
+          "start_offset_seconds": 120.0,
+          "end_offset_seconds": 180.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 20.0,
+          "configured_end_rate_per_second": 0.0,
+          "configured_expected_starts": 600.0
+        }
+      ],
+      "configured_expected_starts": 2400.0,
+      "scrape_opportunities_per_stage": [
+        12.0,
+        12.0,
+        12.0
+      ]
+    },
+    {
+      "profile": "musical-high",
+      "workloadModel": "single-attempt",
+      "runNumber": 1,
+      "config": "config/baseline/musical-high.single-attempt.json",
+      "config_source": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline/musical-high.single-attempt.json",
+      "config_sha256": "75295bb49e997a57a70e36401dd8e45553ea0753447d886b3b2b95cec0da26f6",
+      "effective_config": {
+        "schemaVersion": 1,
+        "fixtureTemplate": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/fixture-template.json",
+        "randomSeed": 20261011,
+        "requestTimeout": "10s",
+        "auth": {
+          "mode": "automatic",
+          "tokenPoolSize": 10,
+          "accountWorkers": 4,
+          "tokenValidityMarginSeconds": 60
+        },
+        "measurement": {
+          "executor": "ramping-arrival-rate",
+          "timeUnit": "1s",
+          "startRate": 0,
+          "gracefulStop": "90s",
+          "stages": [
+            {
+              "duration": "60s",
+              "target": 150
+            },
+            {
+              "duration": "60s",
+              "target": 150
+            },
+            {
+              "duration": "60s",
+              "target": 0
+            }
+          ],
+          "preAllocatedVUs": 256,
+          "maxVUs": 256
+        },
+        "warmup": {
+          "enabled": true,
+          "execution": {
+            "executor": "ramping-arrival-rate",
+            "timeUnit": "1s",
+            "startRate": 1,
+            "stages": [
+              {
+                "duration": "60s",
+                "target": 1
+              }
+            ],
+            "preAllocatedVUs": 80,
+            "maxVUs": 80,
+            "gracefulStop": "90s"
+          }
+        },
+        "prometheus": {
+          "job": "imticket-v2",
+          "application": "imticket-v2",
+          "scrapeIntervalSeconds": 5,
+          "stepSeconds": 5,
+          "rateWindow": "30s",
+          "contextBeforeSeconds": 30,
+          "contextAfterSeconds": 5,
+          "settleTimeoutSeconds": 15,
+          "queryTimeoutSeconds": 10
+        },
+        "validation": {
+          "arrivalCountTolerance": {
+            "absoluteIterations": 2,
+            "relative": 0.05
+          },
+          "minimumApiSamples": 100
+        },
+        "inventory": {
+          "mode": "db"
+        },
+        "profile": "musical-high",
+        "workloadModel": "single-attempt"
+      },
+      "seat_count": 1500,
+      "stage_schedule": [
+        {
+          "stage": 1,
+          "start_offset_seconds": 0.0,
+          "end_offset_seconds": 60.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 0.0,
+          "configured_end_rate_per_second": 150.0,
+          "configured_expected_starts": 4500.0
+        },
+        {
+          "stage": 2,
+          "start_offset_seconds": 60.0,
+          "end_offset_seconds": 120.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 150.0,
+          "configured_end_rate_per_second": 150.0,
+          "configured_expected_starts": 9000.0
+        },
+        {
+          "stage": 3,
+          "start_offset_seconds": 120.0,
+          "end_offset_seconds": 180.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 150.0,
+          "configured_end_rate_per_second": 0.0,
+          "configured_expected_starts": 4500.0
+        }
+      ],
+      "configured_expected_starts": 18000.0,
+      "scrape_opportunities_per_stage": [
+        12.0,
+        12.0,
+        12.0
+      ]
+    },
+    {
+      "profile": "musical-high",
+      "workloadModel": "reselection",
+      "runNumber": 1,
+      "config": "config/baseline/musical-high.reselection.json",
+      "config_source": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline/musical-high.reselection.json",
+      "config_sha256": "c18659cfed23a32466ad133299a0f627bdacee6addffa99a5014cbe235780477",
+      "effective_config": {
+        "schemaVersion": 1,
+        "fixtureTemplate": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/fixture-template.json",
+        "randomSeed": 20261011,
+        "requestTimeout": "10s",
+        "auth": {
+          "mode": "automatic",
+          "tokenPoolSize": 10,
+          "accountWorkers": 4,
+          "tokenValidityMarginSeconds": 60
+        },
+        "measurement": {
+          "executor": "ramping-arrival-rate",
+          "timeUnit": "1s",
+          "startRate": 0,
+          "gracefulStop": "90s",
+          "stages": [
+            {
+              "duration": "60s",
+              "target": 150
+            },
+            {
+              "duration": "60s",
+              "target": 150
+            },
+            {
+              "duration": "60s",
+              "target": 0
+            }
+          ],
+          "preAllocatedVUs": 512,
+          "maxVUs": 512
+        },
+        "warmup": {
+          "enabled": true,
+          "execution": {
+            "executor": "ramping-arrival-rate",
+            "timeUnit": "1s",
+            "startRate": 1,
+            "stages": [
+              {
+                "duration": "60s",
+                "target": 1
+              }
+            ],
+            "preAllocatedVUs": 80,
+            "maxVUs": 80,
+            "gracefulStop": "90s"
+          }
+        },
+        "prometheus": {
+          "job": "imticket-v2",
+          "application": "imticket-v2",
+          "scrapeIntervalSeconds": 5,
+          "stepSeconds": 5,
+          "rateWindow": "30s",
+          "contextBeforeSeconds": 30,
+          "contextAfterSeconds": 5,
+          "settleTimeoutSeconds": 15,
+          "queryTimeoutSeconds": 10
+        },
+        "validation": {
+          "arrivalCountTolerance": {
+            "absoluteIterations": 2,
+            "relative": 0.05
+          },
+          "minimumApiSamples": 100
+        },
+        "inventory": {
+          "mode": "db"
+        },
+        "profile": "musical-high",
+        "workloadModel": "reselection",
+        "reselection": {
+          "selectionPolicy": "preferred-region-then-other-then-all",
+          "thinkTime": {
+            "enabled": false,
+            "distribution": null,
+            "duration": null,
+            "min": null,
+            "max": null
+          },
+          "abandonment": {
+            "enabled": false,
+            "maxReselections": null,
+            "maxDuration": null
+          },
+          "safetyGuard": {
+            "maxJourneyDuration": "60s"
+          }
+        }
+      },
+      "seat_count": 1500,
+      "stage_schedule": [
+        {
+          "stage": 1,
+          "start_offset_seconds": 0.0,
+          "end_offset_seconds": 60.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 0.0,
+          "configured_end_rate_per_second": 150.0,
+          "configured_expected_starts": 4500.0
+        },
+        {
+          "stage": 2,
+          "start_offset_seconds": 60.0,
+          "end_offset_seconds": 120.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 150.0,
+          "configured_end_rate_per_second": 150.0,
+          "configured_expected_starts": 9000.0
+        },
+        {
+          "stage": 3,
+          "start_offset_seconds": 120.0,
+          "end_offset_seconds": 180.0,
+          "duration_seconds": 60.0,
+          "configured_start_rate_per_second": 150.0,
+          "configured_end_rate_per_second": 0.0,
+          "configured_expected_starts": 4500.0
+        }
+      ],
+      "configured_expected_starts": 18000.0,
+      "scrape_opportunities_per_stage": [
+        12.0,
+        12.0,
+        12.0
+      ]
+    }
+  ],
+  "config_sha256": {
+    "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline/musical-low.single-attempt.json": "a2a45985cd9f761264bf5d304026730a5a0c49accf1f303760d5abe620019278",
+    "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline/musical-low.reselection.json": "6cd9ff54c38bc493ab63bc07b6787ab9a7ccee59074dbf1d9d16e7f310dd22ec",
+    "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline/musical-high.single-attempt.json": "75295bb49e997a57a70e36401dd8e45553ea0753447d886b3b2b95cec0da26f6",
+    "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline/musical-high.reselection.json": "c18659cfed23a32466ad133299a0f627bdacee6addffa99a5014cbe235780477"
+  },
+  "batch_source": "/Users/jeonjeonghyeon/studyCollection/Imticket-v2/k6/config/baseline-first-batch.json",
+  "batch_sha256": "65962ed5e50c80a0a8d0bf91afd6eb50f93b32e5e825eb9f1fda25f0720676e7",
+  "measured_runs": 4,
+  "warmup_runs": 4,
+  "fixtures": 8,
+  "fixed_workload_seconds": 960,
+  "drain_allowance_seconds": 720,
+  "scope": "Four runs only. No automatic config adjustment, optimization or expansion to the remaining 56 runs."
+}

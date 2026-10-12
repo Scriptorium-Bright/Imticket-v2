@@ -1,0 +1,364 @@
+{
+  "source_config": "k6/config/pilot.example.json",
+  "executed": false,
+  "queries": {
+    "http": [
+      {
+        "id": "http_server_requests_seconds_count",
+        "expression": "http_server_requests_seconds_count{job=\"imticket-v2\",application=\"imticket-v2\",uri=~\"/api/(seats|reservations|payments)(/.*)?\"}",
+        "metric_names": [
+          "http_server_requests_seconds_count"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "http_server_requests_seconds_sum",
+        "expression": "http_server_requests_seconds_sum{job=\"imticket-v2\",application=\"imticket-v2\",uri=~\"/api/(seats|reservations|payments)(/.*)?\"}",
+        "metric_names": [
+          "http_server_requests_seconds_sum"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "http_server_requests_seconds_bucket",
+        "expression": "http_server_requests_seconds_bucket{job=\"imticket-v2\",application=\"imticket-v2\",uri=~\"/api/(seats|reservations|payments)(/.*)?\"}",
+        "metric_names": [
+          "http_server_requests_seconds_bucket"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "booking_http_throughput",
+        "expression": "sum by (method, uri, status) (rate(http_server_requests_seconds_count{job=\"imticket-v2\",application=\"imticket-v2\",uri=~\"/api/(seats|reservations|payments)(/.*)?\"}[30s]))",
+        "metric_names": [
+          "http_server_requests_seconds_count"
+        ],
+        "kind": "windowed",
+        "window_seconds": 30.0,
+        "unit": "requests/s",
+        "required": false
+      },
+      {
+        "id": "booking_http_p50",
+        "expression": "histogram_quantile(0.5, sum by (le, method, uri) (rate(http_server_requests_seconds_bucket{job=\"imticket-v2\",application=\"imticket-v2\",uri=~\"/api/(seats|reservations|payments)(/.*)?\"}[30s])))",
+        "metric_names": [
+          "http_server_requests_seconds_bucket"
+        ],
+        "kind": "windowed",
+        "window_seconds": 30.0,
+        "unit": "seconds",
+        "required": false
+      },
+      {
+        "id": "booking_http_p95",
+        "expression": "histogram_quantile(0.95, sum by (le, method, uri) (rate(http_server_requests_seconds_bucket{job=\"imticket-v2\",application=\"imticket-v2\",uri=~\"/api/(seats|reservations|payments)(/.*)?\"}[30s])))",
+        "metric_names": [
+          "http_server_requests_seconds_bucket"
+        ],
+        "kind": "windowed",
+        "window_seconds": 30.0,
+        "unit": "seconds",
+        "required": false
+      },
+      {
+        "id": "booking_http_p99",
+        "expression": "histogram_quantile(0.99, sum by (le, method, uri) (rate(http_server_requests_seconds_bucket{job=\"imticket-v2\",application=\"imticket-v2\",uri=~\"/api/(seats|reservations|payments)(/.*)?\"}[30s])))",
+        "metric_names": [
+          "http_server_requests_seconds_bucket"
+        ],
+        "kind": "windowed",
+        "window_seconds": 30.0,
+        "unit": "seconds",
+        "required": false
+      },
+      {
+        "id": "booking_http_5xx",
+        "expression": "sum(rate(http_server_requests_seconds_count{job=\"imticket-v2\",application=\"imticket-v2\",uri=~\"/api/(seats|reservations|payments)(/.*)?\",status=~\"5..\"}[30s]))",
+        "metric_names": [
+          "http_server_requests_seconds_count"
+        ],
+        "kind": "windowed",
+        "window_seconds": 30.0,
+        "unit": "requests/s",
+        "required": false
+      }
+    ],
+    "tomcat": [
+      {
+        "id": "tomcat_threads_busy_threads",
+        "expression": "tomcat_threads_busy_threads{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "tomcat_threads_busy_threads"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "tomcat_threads_config_max_threads",
+        "expression": "tomcat_threads_config_max_threads{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "tomcat_threads_config_max_threads"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "tomcat_threads_current_threads",
+        "expression": "tomcat_threads_current_threads{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "tomcat_threads_current_threads"
+        ],
+        "kind": "raw",
+        "required": true
+      }
+    ],
+    "hikari": [
+      {
+        "id": "hikaricp_connections_active",
+        "expression": "hikaricp_connections_active{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "hikaricp_connections_active"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "hikaricp_connections_idle",
+        "expression": "hikaricp_connections_idle{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "hikaricp_connections_idle"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "hikaricp_connections_pending",
+        "expression": "hikaricp_connections_pending{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "hikaricp_connections_pending"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "hikaricp_connections_max",
+        "expression": "hikaricp_connections_max{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "hikaricp_connections_max"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "hikaricp_connections_acquire_seconds_count",
+        "expression": "hikaricp_connections_acquire_seconds_count{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "hikaricp_connections_acquire_seconds_count"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "hikaricp_connections_acquire_seconds_sum",
+        "expression": "hikaricp_connections_acquire_seconds_sum{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "hikaricp_connections_acquire_seconds_sum"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "hikaricp_connections_acquire_seconds_max",
+        "expression": "hikaricp_connections_acquire_seconds_max{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "hikaricp_connections_acquire_seconds_max"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "hikaricp_connections_timeout_total",
+        "expression": "hikaricp_connections_timeout_total{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "hikaricp_connections_timeout_total"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "acquisition_mean",
+        "expression": "rate(hikaricp_connections_acquire_seconds_sum{job=\"imticket-v2\",application=\"imticket-v2\"}[30s]) / rate(hikaricp_connections_acquire_seconds_count{job=\"imticket-v2\",application=\"imticket-v2\"}[30s])",
+        "metric_names": [
+          "hikaricp_connections_acquire_seconds_sum",
+          "hikaricp_connections_acquire_seconds_count"
+        ],
+        "kind": "windowed",
+        "window_seconds": 30.0,
+        "unit": "seconds",
+        "required": false
+      }
+    ],
+    "jvm": [
+      {
+        "id": "process_cpu_usage",
+        "expression": "process_cpu_usage{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "process_cpu_usage"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "process_cpu_time_ns_total",
+        "expression": "process_cpu_time_ns_total{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "process_cpu_time_ns_total"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_memory_used_bytes",
+        "expression": "jvm_memory_used_bytes{job=\"imticket-v2\",application=\"imticket-v2\",area=\"heap\"}",
+        "metric_names": [
+          "jvm_memory_used_bytes"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_memory_committed_bytes",
+        "expression": "jvm_memory_committed_bytes{job=\"imticket-v2\",application=\"imticket-v2\",area=\"heap\"}",
+        "metric_names": [
+          "jvm_memory_committed_bytes"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_memory_max_bytes",
+        "expression": "jvm_memory_max_bytes{job=\"imticket-v2\",application=\"imticket-v2\",area=\"heap\"}",
+        "metric_names": [
+          "jvm_memory_max_bytes"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_gc_memory_allocated_bytes_total",
+        "expression": "jvm_gc_memory_allocated_bytes_total{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_gc_memory_allocated_bytes_total"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_gc_pause_seconds_bucket",
+        "expression": "jvm_gc_pause_seconds_bucket{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_gc_pause_seconds_bucket"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_gc_pause_seconds_count",
+        "expression": "jvm_gc_pause_seconds_count{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_gc_pause_seconds_count"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_gc_pause_seconds_sum",
+        "expression": "jvm_gc_pause_seconds_sum{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_gc_pause_seconds_sum"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_gc_pause_seconds_max",
+        "expression": "jvm_gc_pause_seconds_max{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_gc_pause_seconds_max"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_threads_live_threads",
+        "expression": "jvm_threads_live_threads{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_threads_live_threads"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_threads_peak_threads",
+        "expression": "jvm_threads_peak_threads{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_threads_peak_threads"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_threads_daemon_threads",
+        "expression": "jvm_threads_daemon_threads{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_threads_daemon_threads"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_threads_states_threads",
+        "expression": "jvm_threads_states_threads{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_threads_states_threads"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "jvm_threads_started_threads_total",
+        "expression": "jvm_threads_started_threads_total{job=\"imticket-v2\",application=\"imticket-v2\"}",
+        "metric_names": [
+          "jvm_threads_started_threads_total"
+        ],
+        "kind": "raw",
+        "required": true
+      },
+      {
+        "id": "allocation_rate",
+        "expression": "rate(jvm_gc_memory_allocated_bytes_total{job=\"imticket-v2\",application=\"imticket-v2\"}[30s])",
+        "metric_names": [
+          "jvm_gc_memory_allocated_bytes_total"
+        ],
+        "kind": "windowed",
+        "window_seconds": 30.0,
+        "unit": "bytes/s",
+        "required": false
+      },
+      {
+        "id": "gc_pause_p95",
+        "expression": "histogram_quantile(0.95, sum by (le) (rate(jvm_gc_pause_seconds_bucket{job=\"imticket-v2\",application=\"imticket-v2\"}[30s])))",
+        "metric_names": [
+          "jvm_gc_pause_seconds_bucket"
+        ],
+        "kind": "windowed",
+        "window_seconds": 30.0,
+        "unit": "seconds",
+        "required": false
+      }
+    ]
+  }
+}

@@ -8,3 +8,11 @@ out/
 *.log
 profiles/*
 !profiles/.gitkeep
+
+# k6 local fixtures, execution inputs, and experiment artifacts
+k6/results/
+k6/config/*.local.*
+k6/fixtures/*
+!k6/fixtures/tokens.example.json
+k6/**/__pycache__/
+k6/**/.*.lightmd.json

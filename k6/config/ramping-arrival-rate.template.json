@@ -1,0 +1,11 @@
+{
+  "executor": "ramping-arrival-rate",
+  "timeUnit": "1s",
+  "startRate": null,
+  "preAllocatedVUs": null,
+  "maxVUs": null,
+  "gracefulStop": null,
+  "stages": [
+    {"duration": null, "target": null}
+  ]
+}

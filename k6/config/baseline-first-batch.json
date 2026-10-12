@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "purpose": "First measured Baseline batch; four runs only, no automatic expansion or config adjustment.",
+  "runs": [
+    {
+      "profile": "musical-low",
+      "workloadModel": "single-attempt",
+      "runNumber": 1,
+      "config": "config/baseline/musical-low.single-attempt.json"
+    },
+    {
+      "profile": "musical-low",
+      "workloadModel": "reselection",
+      "runNumber": 1,
+      "config": "config/baseline/musical-low.reselection.json"
+    },
+    {
+      "profile": "musical-high",
+      "workloadModel": "single-attempt",
+      "runNumber": 1,
+      "config": "config/baseline/musical-high.single-attempt.json"
+    },
+    {
+      "profile": "musical-high",
+      "workloadModel": "reselection",
+      "runNumber": 1,
+      "config": "config/baseline/musical-high.reselection.json"
+    }
+  ]
+}

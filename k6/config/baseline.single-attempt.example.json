@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "profile": "musical-low",
+  "fixtureTemplate": "config/fixture-template.json",
+  "randomSeed": 20261011,
+  "requestTimeout": "10s",
+  "auth": {
+    "mode": "automatic",
+    "tokenPoolSize": null,
+    "accountWorkers": 4,
+    "tokenValidityMarginSeconds": 60
+  },
+  "measurement": {
+    "executor": "ramping-arrival-rate",
+    "timeUnit": "1s",
+    "startRate": null,
+    "stages": null,
+    "preAllocatedVUs": null,
+    "maxVUs": null,
+    "gracefulStop": "30s"
+  },
+  "warmup": {
+    "enabled": true,
+    "execution": {
+      "executor": "ramping-arrival-rate",
+      "timeUnit": "1s",
+      "startRate": null,
+      "stages": null,
+      "preAllocatedVUs": null,
+      "maxVUs": null,
+      "gracefulStop": "30s"
+    }
+  },
+  "prometheus": {
+    "job": "imticket-v2",
+    "application": "imticket-v2",
+    "scrapeIntervalSeconds": 5,
+    "stepSeconds": 5,
+    "rateWindow": "30s",
+    "contextBeforeSeconds": 30,
+    "contextAfterSeconds": 5,
+    "settleTimeoutSeconds": 15,
+    "queryTimeoutSeconds": 10
+  },
+  "validation": {
+    "arrivalCountTolerance": {
+      "absoluteIterations": 2,
+      "relative": 0.05
+    },
+    "minimumApiSamples": null
+  },
+  "workloadModel": "single-attempt",
+  "inventory": {
+    "mode": "db"
+  }
+}

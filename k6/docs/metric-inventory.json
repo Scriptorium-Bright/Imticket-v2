@@ -1,0 +1,464 @@
+{
+  "observed_at": "2026-10-10T18:38:16.881086Z",
+  "source": "live /actuator/prometheus and existing Prometheus HTTP API",
+  "load_test_executed": false,
+  "groups": {
+    "http": [
+      "http_server_requests_active_seconds_bucket",
+      "http_server_requests_active_seconds_gcount",
+      "http_server_requests_active_seconds_gsum",
+      "http_server_requests_active_seconds_max",
+      "http_server_requests_seconds_bucket",
+      "http_server_requests_seconds_count",
+      "http_server_requests_seconds_max",
+      "http_server_requests_seconds_sum"
+    ],
+    "tomcat": [
+      "tomcat_cache_access_total",
+      "tomcat_cache_hit_total",
+      "tomcat_connections_config_max_connections",
+      "tomcat_connections_current_connections",
+      "tomcat_connections_keepalive_current_connections",
+      "tomcat_global_error_total",
+      "tomcat_global_received_bytes_total",
+      "tomcat_global_request_max_seconds",
+      "tomcat_global_request_seconds_count",
+      "tomcat_global_request_seconds_sum",
+      "tomcat_global_sent_bytes_total",
+      "tomcat_servlet_error_total",
+      "tomcat_servlet_request_max_seconds",
+      "tomcat_servlet_request_seconds_count",
+      "tomcat_servlet_request_seconds_sum",
+      "tomcat_sessions_active_current_sessions",
+      "tomcat_sessions_active_max_sessions",
+      "tomcat_sessions_alive_max_seconds",
+      "tomcat_sessions_created_sessions_total",
+      "tomcat_sessions_expired_sessions_total",
+      "tomcat_sessions_rejected_sessions_total",
+      "tomcat_threads_busy_threads",
+      "tomcat_threads_config_max_threads",
+      "tomcat_threads_current_threads"
+    ],
+    "hikari": [
+      "hikaricp_connections",
+      "hikaricp_connections_acquire_seconds_count",
+      "hikaricp_connections_acquire_seconds_max",
+      "hikaricp_connections_acquire_seconds_sum",
+      "hikaricp_connections_active",
+      "hikaricp_connections_creation_seconds_count",
+      "hikaricp_connections_creation_seconds_max",
+      "hikaricp_connections_creation_seconds_sum",
+      "hikaricp_connections_idle",
+      "hikaricp_connections_max",
+      "hikaricp_connections_min",
+      "hikaricp_connections_pending",
+      "hikaricp_connections_timeout_total",
+      "hikaricp_connections_usage_seconds_count",
+      "hikaricp_connections_usage_seconds_max",
+      "hikaricp_connections_usage_seconds_sum"
+    ],
+    "jvm": [
+      "jvm_buffer_count_buffers",
+      "jvm_buffer_memory_used_bytes",
+      "jvm_buffer_total_capacity_bytes",
+      "jvm_classes_loaded_classes",
+      "jvm_classes_unloaded_classes_total",
+      "jvm_compilation_time_ms_total",
+      "jvm_gc_concurrent_phase_time_seconds_count",
+      "jvm_gc_concurrent_phase_time_seconds_max",
+      "jvm_gc_concurrent_phase_time_seconds_sum",
+      "jvm_gc_live_data_size_bytes",
+      "jvm_gc_max_data_size_bytes",
+      "jvm_gc_memory_allocated_bytes_total",
+      "jvm_gc_memory_promoted_bytes_total",
+      "jvm_gc_overhead",
+      "jvm_gc_pause_seconds_bucket",
+      "jvm_gc_pause_seconds_count",
+      "jvm_gc_pause_seconds_max",
+      "jvm_gc_pause_seconds_sum",
+      "jvm_info",
+      "jvm_memory_committed_bytes",
+      "jvm_memory_max_bytes",
+      "jvm_memory_usage_after_gc",
+      "jvm_memory_used_bytes",
+      "jvm_threads_daemon_threads",
+      "jvm_threads_live_threads",
+      "jvm_threads_peak_threads",
+      "jvm_threads_started_threads_total",
+      "jvm_threads_states_threads",
+      "process_cpu_time_ns_total",
+      "process_cpu_usage",
+      "system_cpu_count",
+      "system_cpu_usage"
+    ],
+    "host_or_db": []
+  },
+  "artifact_directory": "k6/results/review_20261010T183816.722399Z",
+  "total_exposed_sample_names": 152,
+  "targets": [
+    {
+      "job": "imticket-v2",
+      "health": "up",
+      "last_scrape": "2026-10-10T18:38:17.320581771Z",
+      "scrape_interval": "5s",
+      "scrape_timeout": "5s",
+      "last_error": ""
+    }
+  ],
+  "prometheus_query_status": "success",
+  "prometheus_window": {
+    "start_epoch": 1791657437.572354,
+    "end_epoch": 1791657497.572354,
+    "step_seconds": 5,
+    "purpose": "read-only availability review, not Pilot or Baseline"
+  },
+  "prometheus_series": {
+    "hikaricp_connections": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_acquire_seconds_count": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_acquire_seconds_max": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_acquire_seconds_sum": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_active": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_creation_seconds_count": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_creation_seconds_max": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_creation_seconds_sum": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_idle": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_max": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_min": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_pending": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_timeout_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_usage_seconds_count": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_usage_seconds_max": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "hikaricp_connections_usage_seconds_sum": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "http_server_requests_active_seconds_bucket": {
+      "series_count": 58,
+      "evaluation_points": 754
+    },
+    "http_server_requests_active_seconds_gcount": {
+      "series_count": 2,
+      "evaluation_points": 26
+    },
+    "http_server_requests_active_seconds_gsum": {
+      "series_count": 2,
+      "evaluation_points": 26
+    },
+    "http_server_requests_active_seconds_max": {
+      "series_count": 2,
+      "evaluation_points": 26
+    },
+    "http_server_requests_seconds_bucket": {
+      "series_count": 828,
+      "evaluation_points": 10764
+    },
+    "http_server_requests_seconds_count": {
+      "series_count": 12,
+      "evaluation_points": 156
+    },
+    "http_server_requests_seconds_max": {
+      "series_count": 12,
+      "evaluation_points": 156
+    },
+    "http_server_requests_seconds_sum": {
+      "series_count": 12,
+      "evaluation_points": 156
+    },
+    "jvm_buffer_count_buffers": {
+      "series_count": 3,
+      "evaluation_points": 39
+    },
+    "jvm_buffer_memory_used_bytes": {
+      "series_count": 3,
+      "evaluation_points": 39
+    },
+    "jvm_buffer_total_capacity_bytes": {
+      "series_count": 3,
+      "evaluation_points": 39
+    },
+    "jvm_classes_loaded_classes": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_classes_unloaded_classes_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_compilation_time_ms_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_concurrent_phase_time_seconds_count": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_concurrent_phase_time_seconds_max": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_concurrent_phase_time_seconds_sum": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_live_data_size_bytes": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_max_data_size_bytes": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_memory_allocated_bytes_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_memory_promoted_bytes_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_overhead": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_gc_pause_seconds_bucket": {
+      "series_count": 138,
+      "evaluation_points": 1794
+    },
+    "jvm_gc_pause_seconds_count": {
+      "series_count": 2,
+      "evaluation_points": 26
+    },
+    "jvm_gc_pause_seconds_max": {
+      "series_count": 2,
+      "evaluation_points": 26
+    },
+    "jvm_gc_pause_seconds_sum": {
+      "series_count": 2,
+      "evaluation_points": 26
+    },
+    "jvm_info": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_memory_committed_bytes": {
+      "series_count": 8,
+      "evaluation_points": 104
+    },
+    "jvm_memory_max_bytes": {
+      "series_count": 8,
+      "evaluation_points": 104
+    },
+    "jvm_memory_usage_after_gc": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_memory_used_bytes": {
+      "series_count": 8,
+      "evaluation_points": 104
+    },
+    "jvm_threads_daemon_threads": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_threads_live_threads": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_threads_peak_threads": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_threads_started_threads_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "jvm_threads_states_threads": {
+      "series_count": 6,
+      "evaluation_points": 78
+    },
+    "process_cpu_time_ns_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "process_cpu_usage": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "system_cpu_count": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "system_cpu_usage": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_cache_access_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_cache_hit_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_connections_config_max_connections": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_connections_current_connections": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_connections_keepalive_current_connections": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_global_error_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_global_received_bytes_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_global_request_max_seconds": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_global_request_seconds_count": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_global_request_seconds_sum": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_global_sent_bytes_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_servlet_error_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_servlet_request_max_seconds": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_servlet_request_seconds_count": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_servlet_request_seconds_sum": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_sessions_active_current_sessions": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_sessions_active_max_sessions": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_sessions_alive_max_seconds": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_sessions_created_sessions_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_sessions_expired_sessions_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_sessions_rejected_sessions_total": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_threads_busy_threads": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_threads_config_max_threads": {
+      "series_count": 1,
+      "evaluation_points": 13
+    },
+    "tomcat_threads_current_threads": {
+      "series_count": 1,
+      "evaluation_points": 13
+    }
+  },
+  "missing_from_prometheus": [],
+  "server_checkout": {
+    "branch": "develop",
+    "commit": "d9777b0",
+    "working_tree_dirty": true,
+    "checkout_is_not_binary_provenance": true,
+    "modified_file_count": 19,
+    "non_comment_line_changes": []
+  },
+  "app_runtime": {
+    "image_id": "sha256:4847d09556597653ff855c3d17329b2ea8990e70a9829fcce970b836302d9a57",
+    "started_at": "2026-10-10T18:16:00.283692444Z",
+    "payment_gateway_provider": "fake"
+  },
+  "unavailable": {
+    "hikari_acquisition_histogram": "hikaricp_connections_acquire_seconds_bucket not exposed",
+    "jvm_deadlocked_threads": "jvm_threads_deadlocked_threads not exposed",
+    "db_lock_wait": "currently not automatically collected",
+    "mysql_host": "currently not automatically collected",
+    "oci_host": "currently not automatically collected"
+  },
+  "notes": [
+    "Availability review only; no Pilot or Baseline workload was executed.",
+    "Prometheus evaluation points are not a count of independent scrapes.",
+    "URLs, target addresses and authentication data are omitted from this inventory.",
+    "Existing short real-server smoke summary has no vus/vus_max samples; Pilot must verify these series separately."
+  ]
+}

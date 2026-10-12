@@ -1,0 +1,4 @@
+[
+  {"memberId": 1, "accessToken": "<FIRST_PREISSUED_ACCESS_TOKEN>"},
+  {"memberId": 2, "accessToken": "<SECOND_PREISSUED_ACCESS_TOKEN>"}
+]

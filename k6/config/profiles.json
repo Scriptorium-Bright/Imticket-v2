@@ -1,0 +1,12 @@
+{
+  "musical-low":  {"seatCount":1000,"targetUsers":500,"referenceAttemptors":500,"peakJourneyArrivalRate":20,"hotSeatRatio":0.20,"hotTrafficRatio":0.35,"seatSelectionRatio":[0.60,0.30,0.10]},
+  "musical-high": {"seatCount":1500,"targetUsers":3000,"referenceAttemptors":3000,"peakJourneyArrivalRate":150,"hotSeatRatio":0.20,"hotTrafficRatio":0.65,"seatSelectionRatio":[0.50,0.35,0.15]},
+  "idol-low":     {"seatCount":1000,"targetUsers":800,"referenceAttemptors":800,"peakJourneyArrivalRate":40,"hotSeatRatio":0.30,"hotTrafficRatio":0.45,"seatSelectionRatio":[0.55,0.30,0.15]},
+  "idol-high":    {"seatCount":1500,"targetUsers":5000,"referenceAttemptors":8000,"peakJourneyArrivalRate":500,"hotSeatRatio":0.20,"hotTrafficRatio":0.75,"seatSelectionRatio":[0.45,0.35,0.20]},
+  "rapper-low":   {"seatCount":1000,"targetUsers":400,"referenceAttemptors":400,"peakJourneyArrivalRate":20,"hotSeatRatio":0.20,"hotTrafficRatio":0.35,"seatSelectionRatio":[0.65,0.25,0.10]},
+  "rapper-high":  {"seatCount":1500,"targetUsers":2500,"referenceAttemptors":2500,"peakJourneyArrivalRate":120,"hotSeatRatio":0.20,"hotTrafficRatio":0.60,"seatSelectionRatio":[0.55,0.30,0.15]},
+  "ballad-low":   {"seatCount":1000,"targetUsers":500,"referenceAttemptors":500,"peakJourneyArrivalRate":15,"hotSeatRatio":0.30,"hotTrafficRatio":0.30,"seatSelectionRatio":[0.60,0.30,0.10]},
+  "ballad-high":  {"seatCount":1500,"targetUsers":2000,"referenceAttemptors":2000,"peakJourneyArrivalRate":80,"hotSeatRatio":0.25,"hotTrafficRatio":0.55,"seatSelectionRatio":[0.55,0.30,0.15]},
+  "overseas-low": {"seatCount":1000,"targetUsers":700,"referenceAttemptors":700,"peakJourneyArrivalRate":30,"hotSeatRatio":0.25,"hotTrafficRatio":0.40,"seatSelectionRatio":[0.60,0.30,0.10]},
+  "overseas-high":{"seatCount":1500,"targetUsers":6000,"referenceAttemptors":10000,"peakJourneyArrivalRate":700,"hotSeatRatio":0.15,"hotTrafficRatio":0.80,"seatSelectionRatio":[0.45,0.35,0.20]}
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "profile": "musical-high",
+  "lowerAnchorPeak": 20,
+  "upperFailingPeak": 150,
+  "roundingIncrement": 5,
+  "resolution": 20,
+  "models": [
+    {
+      "workloadModel": "single-attempt",
+      "config": "config/baseline/musical-high.single-attempt.json",
+      "passingContext": "results/20261011T145156.729246KST_musical-low_single-attempt_baseline_run-01",
+      "failingReference": "results/20261011T150040.336016KST_musical-high_single-attempt_baseline_run-01"
+    },
+    {
+      "workloadModel": "reselection",
+      "config": "config/baseline/musical-high.reselection.json",
+      "passingContext": "results/20261011T145618.558508KST_musical-low_reselection_baseline_run-01",
+      "failingReference": "results/20261011T150801.192572KST_musical-high_reselection_baseline_run-01"
+    }
+  ]
+}

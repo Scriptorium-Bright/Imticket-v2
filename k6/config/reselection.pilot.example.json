@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "profile": "musical-low",
+  "fixtureTemplate": "config/fixture-template.json",
+  "randomSeed": 20261011,
+  "requestTimeout": "10s",
+  "auth": {
+    "mode": "automatic",
+    "tokenPoolSize": null,
+    "accountWorkers": 4,
+    "tokenValidityMarginSeconds": 60
+  },
+  "measurement": {
+    "executor": "ramping-arrival-rate",
+    "timeUnit": "1s",
+    "startRate": 1,
+    "stages": [
+      {
+        "duration": "30s",
+        "target": 1
+      },
+      {
+        "duration": "30s",
+        "target": 2
+      },
+      {
+        "duration": "60s",
+        "target": 2
+      },
+      {
+        "duration": "30s",
+        "target": 0
+      }
+    ],
+    "preAllocatedVUs": null,
+    "maxVUs": null,
+    "gracefulStop": "90s"
+  },
+  "warmup": {
+    "enabled": true,
+    "execution": {
+      "executor": "ramping-arrival-rate",
+      "timeUnit": "1s",
+      "startRate": 1,
+      "stages": [
+        {
+          "duration": "60s",
+          "target": 1
+        }
+      ],
+      "preAllocatedVUs": null,
+      "maxVUs": null,
+      "gracefulStop": "90s"
+    }
+  },
+  "prometheus": {
+    "job": "imticket-v2",
+    "application": "imticket-v2",
+    "scrapeIntervalSeconds": 5,
+    "stepSeconds": 5,
+    "rateWindow": "30s",
+    "contextBeforeSeconds": 30,
+    "contextAfterSeconds": 5,
+    "settleTimeoutSeconds": 15,
+    "queryTimeoutSeconds": 10
+  },
+  "validation": {
+    "arrivalCountTolerance": {
+      "absoluteIterations": 2,
+      "relative": 0.05
+    },
+    "minimumApiSamples": null
+  },
+  "workloadModel": "reselection",
+  "reselection": {
+    "selectionPolicy": "preferred-region-then-other-then-all",
+    "thinkTime": {
+      "enabled": false,
+      "distribution": null,
+      "duration": null,
+      "min": null,
+      "max": null
+    },
+    "abandonment": {
+      "enabled": false,
+      "maxReselections": null,
+      "maxDuration": null
+    },
+    "safetyGuard": {
+      "maxJourneyDuration": "60s"
+    }
+  },
+  "inventory": {
+    "mode": "db"
+  },
+  "smoke": {
+    "executor": "per-vu-iterations",
+    "vus": 1,
+    "iterations": 1,
+    "maxDuration": "90s",
+    "gracefulStop": "90s"
+  }
+}
