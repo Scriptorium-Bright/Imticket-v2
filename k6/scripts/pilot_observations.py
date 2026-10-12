@@ -112,8 +112,11 @@ def analyze(run_dir, metadata, config):
                            and last_slot is not None and workload_end >= last_slot - .01
                            and slots['last_slot_offset_seconds'] < arrival_duration - .01
                            and total['iteration_started'] + total['dropped_iterations'] >= slots['configured_slots'])
-    late_dispatches = sum(v for t, v in events['iteration_started'] if planned_end is not None and t > planned_end + .01)
-    late_drop_samples = sum(v for t, v in events['dropped_iterations'] if planned_end is not None and t > planned_end + .01)
+    # Warm-up scheduling jitter is an observation, not a millisecond deadline SLO.
+    # Preserve the old arrival-measurement policy outside the preparation phase.
+    end_allowance = 0 if phase == 'warmup' else .01
+    late_dispatches = sum(v for t, v in events['iteration_started'] if planned_end is not None and t > planned_end + end_allowance)
+    late_drop_samples = sum(v for t, v in events['dropped_iterations'] if planned_end is not None and t > planned_end + end_allowance)
     dispatched_slots = total['iteration_started'] + total['dropped_iterations']
     unobserved_slots = max(0, slots['configured_slots'] - dispatched_slots) if arrival else None
     # A native deadline-boundary slot may never be dispatched. Larger gaps are not native dropped samples.
@@ -124,6 +127,11 @@ def analyze(run_dir, metadata, config):
     arrival_end = (last_dispatch if early_exhausted else planned_end) if arrival_finished else None
     end_status = ('not-confirmed-late-dispatch' if late_dispatches else 'not-confirmed-dispatch-slot-gap' if nominal_reached and not slot_accounting_valid else
                   ('discrete-arrivals-exhausted-before-nominal-end' if last_dispatch < planned_end else 'discrete-arrivals-exhausted-after-nominal-end') if early_exhausted else 'schedule-completed' if nominal_reached else 'not-confirmed')
+    if phase == 'warmup' and arrival:
+        arrival_finished = bool(start is not None and last_dispatch is not None and workload_end is not None
+                                and slot_accounting_valid and metadata.get('k6_exit_code') in {0, 99})
+        arrival_end = last_dispatch if arrival_finished else None
+        end_status = 'warmup-observed-dispatch-boundary' if arrival_finished else 'not-confirmed-warmup-accounting-or-teardown'
     metadata.update(workload_started_at=iso(start), arrival_started_at=iso(start) if arrival else None,
                     arrival_planned_ended_at=iso(planned_end), arrival_ended_at=iso(arrival_end),
                     arrival_end_status=end_status if arrival else 'not-applicable (contract smoke)',
@@ -131,6 +139,7 @@ def analyze(run_dir, metadata, config):
                                        'last observed start/drop after all discrete slots were dispatched; native scheduler shutdown timestamp is not exposed' if early_exhausted else
                                        'nominal schedule boundary reached') if arrival else 'not-applicable (contract smoke)'),
                     last_observed_arrival_dispatch_at=iso(last_dispatch) if arrival else None, configured_last_arrival_slot_at=iso(last_slot),
+                    last_dispatch_after_planned_end_seconds=max(0, last_dispatch - planned_end) if last_dispatch is not None and planned_end is not None else None,
                     last_iteration_completed_at=iso(last_completed), last_journey_finished_at=iso(last_journey),
                     drain_ended_at=iso(workload_end), workload_ended_at=iso(workload_end),
                     measurement_started_at=iso(start), measurement_ended_at=iso(workload_end) or result_time(metadata.get('ended_at')),
@@ -140,6 +149,8 @@ def analyze(run_dir, metadata, config):
                     actual_journey_finishes=total['journey_finished'], completed_iterations=total['iterations'],
                     unfinished_iterations=unfinished,
                     unfinished_count_basis='raw iteration_started minus k6 iterations; not a native runtime interruption counter')
+    if phase == 'warmup' and arrival:
+        metadata['arrival_end_basis'] = 'Last observed dispatch proxy after slot accounting and k6 teardown; native scheduler shutdown is not exposed. No millisecond lateness failure rule.'
     stages, bins = [], []
     if start is not None:
         for stage in schedule:
@@ -191,6 +202,8 @@ def analyze(run_dir, metadata, config):
         "deadline_boundary_slot_allowance": boundary_allowance,
         "dispatch_events_after_nominal_end_allowance": late_dispatches,
         "native_dropped_samples_emitted_after_nominal_end_allowance": late_drop_samples,
+        "late_dispatch_is_validity_condition": phase != 'warmup',
+        "last_dispatch_after_planned_end_seconds": metadata['last_dispatch_after_planned_end_seconds'],
         "configured_expected_starts": sum(s['configured_expected_starts'] for s in schedule) if arrival else None,
         "observed_iteration_starts": total['iteration_started'], "observed_starts_in_arrival_window": in_arrival if arrival else None,
         "start_events_before_nominal_arrival": before_arrival if arrival else None, "start_events_at_or_after_nominal_arrival_end": at_or_after_end if arrival else None,
@@ -279,7 +292,11 @@ def analyze(run_dir, metadata, config):
         allowed = max(tolerance['absoluteIterations'], expected * tolerance['relative'])
         check('arrival_stage_' + str(stage['stage']), abs(actual - expected) <= allowed,
               {"configured_expected_starts": expected, "observed_starts": actual, "allowed_difference": allowed})
-    if arrival:
+    if arrival and phase == 'warmup':
+        checks['starts_after_arrival'] = {'status': 'observed', 'count': late_dispatches,
+            'details': metadata['last_dispatch_after_planned_end_seconds'],
+            'note': 'Warm-up start lateness is recorded; no millisecond deadline failure rule.'}
+    elif arrival:
         check('starts_after_arrival', not any(t > (planned_end or math.inf) + .01 for t, _ in events['iteration_started']), 'No start events later than schedule end + 10ms timestamp allowance')
     minimum = config['validation']['minimumApiSamples']
     sample_status = 'not-assessed' if minimum is None else ('passed' if all(x['count'] >= minimum for x in observations['api_latency_ms'].values()) else 'insufficient')

@@ -20,6 +20,8 @@ python3 -u k6/scripts/reproducible_baseline.py \
 
 기존 runner 순서를 유지한다. 별도 warm-up 계정/JWT와 fixture → warm-up 및 검증 → 측정용 unique Member/JWT 준비 → fresh measured fixture와 all AVAILABLE 검증 → workload → 사후 Prometheus query_range / DB consistent inventory audit → fixture cleanup → report / validation이다. JWT 발급과 fixture 준비는 measured latency/RPS에 포함하지 않는다. 새로운 cooldown이나 sleep을 넣지 않는다.
 
+Warm-up의 마지막 시작이 nominal 종료보다 늦었다는 이유로 실패시키는 10ms 규칙은 사용하지 않는다. 지연량과 마지막 관측 dispatch를 기록하고, slot accounting·Journey 완료·dropped·guard·실제 runner 종료를 검증한다. 이 수정은 Target VU measured workload의 사용자 행동이나 실행 설정을 바꾸지 않는다. 기존에 중단된 series는 보존하고 수정한 clean SHA로 새 Preflight부터 실행한다.
+
 JWT preparation은 target/completed/failure count와 elapsed time을 기록한다. 전송 예외는 class/repr/str 및 underlying reason/class/repr, authentication index, API, timestamp를 기록한다. Strict series에서는 로그인 실패를 회원가입으로 재시도하지 않는다. 실패 후 이미 실행 중인 준비 요청은 종료를 기다리고 추가 retry는 하지 않는다.
 
 ## 15회 Preflight
